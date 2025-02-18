@@ -9,9 +9,9 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, BatchNormalization
 
-# ======================
+
 #  CONFIGURATION
-# ======================
+
 TRAIN_DIR = r"C:\Users\ASUS\Downloads\archive (1)\train"
 TEST_DIR = r"C:\Users\ASUS\Downloads\archive (1)\test"
 MODEL_PATH = r"C:\FER_Data\emotion_model_img.h5"
@@ -29,9 +29,9 @@ EMOTION_MAP = {
     6: ("Surprise", "😲")
 }
 
-# ======================
+
 #  DATA PREPARATION
-# ======================
+
 def create_generators():
     train_datagen = ImageDataGenerator(
         rescale=1./255,
@@ -62,9 +62,9 @@ def create_generators():
 
     return train_generator, test_generator
 
-# ======================
+
 #  MODEL ARCHITECTURE
-# ======================
+
 def build_model(input_shape, num_classes):
     model = Sequential([
         Conv2D(64, (3,3), activation='relu', input_shape=input_shape),
@@ -93,9 +93,8 @@ def build_model(input_shape, num_classes):
                 metrics=['accuracy'])
     return model
 
-# ======================
 #  REAL-TIME DETECTION
-# ======================
+
 class EmotionDetector:
     def __init__(self, model_path):
         self.model = tf.keras.models.load_model(model_path)
@@ -120,9 +119,9 @@ class EmotionDetector:
                        (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255,0,0), 2)
         return frame
 
-# ======================
+
 #  MAIN WORKFLOW
-# ======================
+
 def main():
     # Create data directory
     os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
